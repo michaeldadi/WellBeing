@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1059245226906",
+    "firebase_url": "https://wellbeing-95ab9.firebaseio.com",
+    "project_id": "wellbeing-95ab9",
+    "storage_bucket": "wellbeing-95ab9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1059245226906:android:15b63abd38e817ee5ed823",
+        "android_client_info": {
+          "package_name": "com.cis102y.wellbeing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1059245226906-3m1u1rrjbsttgfsfjrgnm0e4r3o28ajc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-CLcrqlEWEROOahKWUrgqw0bhKiHXJbk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1059245226906-3m1u1rrjbsttgfsfjrgnm0e4r3o28ajc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
