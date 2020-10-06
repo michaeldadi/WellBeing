@@ -104,7 +104,7 @@
         app:layout_constraintTop_toBottomOf="@id/inputPassword" />
 
     <TextView
-        android:id="@+id/forgotPassword"
+        android:id="@+id/gotoForgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -126,7 +126,7 @@
         android:text="@string/or"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/forgotPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/gotoForgotPassword" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -146,14 +146,23 @@
             android:layout_weight="1"
             app:srcCompat="@drawable/google"
             android:contentDescription="@string/google_icon" />
-
-        <ImageView
-            android:id="@+id/facebookLogin"
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/facebook"
-            android:contentDescription="@string/facebook_icon" />
+            android:id="@+id/loginContainer"
+            android:layout_weight="1">
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/btnFacebookLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+            <ImageView 
+                android:id="@+id/facebookLogin" 
+                android:layout_width="wrap_content" 
+                android:layout_height="wrap_content" 
+                app:srcCompat="@drawable/facebook" 
+                android:contentDescription="@string/facebook_icon" />
+        </FrameLayout>
     </LinearLayout>
 
     <TextView
