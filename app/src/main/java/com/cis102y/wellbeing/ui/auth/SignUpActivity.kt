@@ -25,6 +25,9 @@ import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.auth.ktx.userProfileChangeRequest
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
 private lateinit var auth: FirebaseAuth
@@ -45,16 +48,42 @@ class SignUpActivity : AppCompatActivity() {
         val editTextPassword = findViewById<EditText>(R.id.inputPassword)
         findViewById<Button>(R.id.btnRegister).setOnClickListener {
             auth.createUserWithEmailAndPassword(editTextEmail.text.toString(), editTextPassword.text.toString())
-                .addOnCompleteListener(this) {task ->
-                    if (task.isSuccessful) {
+                .addOnCompleteListener(this) {task1 ->
+                    if (task1.isSuccessful) {
                         Log.d(TAG, "createUserWithEmail:success")
                         val user = auth.currentUser
+                        //Update profile info
+                        val profileUpdates = userProfileChangeRequest {
+                            displayName = ""
+                        }
+                        user!!.updateProfile(profileUpdates).addOnCompleteListener { task2 ->
+                            if (task2.isSuccessful)
+                                Log.d(TAG, "User profile updated.")
+                        }
+                        val userInfo = hashMapOf<String, Any>(
+                            "firstName" to "",
+                            "lastName" to "",
+                            "phoneNumber" to "",
+                            "emailVerified" to false,
+                            "gender" to "",
+                            "age" to 0,
+                            "registrationTimestamp" to FieldValue.serverTimestamp()
+                        )
+                        val db = FirebaseFirestore.getInstance()
+                        db.collection("users").document()
+                            .set(userInfo)
+                            .addOnCompleteListener { task3 ->
+                                if (task3.isSuccessful)
+                                    Log.d(TAG, "DocumentSnapshot successfully written!")
+                                else
+                                    Log.w(TAG, "Error writing document", task3.exception)
+                            }
                         //Send account verification email
-                        user!!.sendEmailVerification()
+                        user.sendEmailVerification()
                         //updateUI(user)
                     }
                     else {
-                        Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                        Log.w(TAG, "createUserWithEmail:failure", task1.exception)
                         Snackbar.make(View(this), "Authentication failed.", Snackbar.LENGTH_SHORT).show()
                         //updateUI(null)
                     }
