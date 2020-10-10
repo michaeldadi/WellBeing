@@ -2,11 +2,11 @@ package com.cis102y.wellbeing
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.cis102y.wellbeing.ui.auth.SignInActivity
-import com.cis102y.wellbeing.ui.home.HomeFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -26,8 +26,14 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         navView.setupWithNavController(navController)
 
-        supportFragmentManager.beginTransaction().add(R.id.nav_host_fragment, HomeFragment()).commit()
         checkCurrentUser()
+
+        setSupportActionBar(findViewById(R.id.toolbar))
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_overflow_menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     private fun checkCurrentUser() {

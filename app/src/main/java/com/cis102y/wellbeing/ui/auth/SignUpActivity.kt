@@ -3,7 +3,6 @@ package com.cis102y.wellbeing.ui.auth
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -60,6 +59,7 @@ class SignUpActivity : AppCompatActivity() {
                             if (task2.isSuccessful)
                                 Log.d(TAG, "User profile updated.")
                         }
+                        //TODO: implement EditTexts in ui to get user inputs
                         val userInfo = hashMapOf<String, Any>(
                             "firstName" to "",
                             "lastName" to "",
@@ -70,7 +70,7 @@ class SignUpActivity : AppCompatActivity() {
                             "registrationTimestamp" to FieldValue.serverTimestamp()
                         )
                         val db = FirebaseFirestore.getInstance()
-                        db.collection("users").document()
+                        db.collection("users").document(user.uid)
                             .set(userInfo)
                             .addOnCompleteListener { task3 ->
                                 if (task3.isSuccessful)
@@ -84,7 +84,7 @@ class SignUpActivity : AppCompatActivity() {
                     }
                     else {
                         Log.w(TAG, "createUserWithEmail:failure", task1.exception)
-                        Snackbar.make(View(this), "Authentication failed.", Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(it, "Authentication failed.", Snackbar.LENGTH_SHORT).show()
                         //updateUI(null)
                     }
                 }
@@ -129,10 +129,7 @@ class SignUpActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        when(resultCode) {
-            0 ->
                 // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-                if (requestCode == RC_SIGN_IN) {
                     val task = GoogleSignIn.getSignedInAccountFromIntent(data)
                     try {
                         // Google Sign In was successful, authenticate with Firebase
@@ -144,9 +141,7 @@ class SignUpActivity : AppCompatActivity() {
                         Log.w(TAG, "Google sign in failed", e)
                         //updateUI(null)
                     }
-                }
-            1 -> callbackManager.onActivityResult(requestCode, resultCode, data)
-        }
+            callbackManager.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun firebaseAuthWithGoogle(idToken: String) {
@@ -163,7 +158,7 @@ class SignUpActivity : AppCompatActivity() {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
 
-                    Snackbar.make(View(this), "Authentication Failed.", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(window.decorView.rootView, "Authentication Failed.", Snackbar.LENGTH_SHORT).show()
                     //updateUI(null)
                 }
             }
@@ -183,7 +178,7 @@ class SignUpActivity : AppCompatActivity() {
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
-                    Snackbar.make(View(this), "Authentication failed.", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(window.decorView.rootView, "Authentication failed.", Snackbar.LENGTH_SHORT).show()
                     //updateUI(null)
                 }
                 //hideProgressBar()
