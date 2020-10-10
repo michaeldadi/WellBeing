@@ -3,9 +3,13 @@ package com.cis102y.wellbeing
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuItemCompat
+import androidx.core.view.ViewGroupCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import androidx.transition.TransitionManager
 import com.cis102y.wellbeing.ui.auth.SignInActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.ktx.auth
@@ -33,7 +37,29 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_overflow_menu, menu)
+        // Define the listener
+        val expandListener = object : MenuItem.OnActionExpandListener {
+            override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
+                TransitionManager.beginDelayedTransition(findViewById(R.id.toolbar))
+                return true // Return true to collapse action view
+            }
+
+            override fun onMenuItemActionExpand(item: MenuItem): Boolean {
+                TransitionManager.beginDelayedTransition(findViewById(R.id.toolbar))
+                return true // Return true to expand action view
+            }
+        }
+
+        // Get the MenuItem for the action item
+        val actionMenuItem = menu?.findItem(R.id.action_search)
+
+        // Assign the listener to that action item
+        actionMenuItem?.setOnActionExpandListener(expandListener)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return super.onOptionsItemSelected(item)
     }
 
     private fun checkCurrentUser() {
