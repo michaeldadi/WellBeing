@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
-
+    <!--Search Action-->
     <item
         android:id="@+id/action_search"
         android:orderInCategory="100"
@@ -11,18 +11,9 @@
         android:icon="@drawable/ic_search_black_24dp"
         app:showAsAction="collapseActionView|ifRoom"
         app:actionViewClass="android.widget.SearchView"/>
-
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="200"
-        android:title="@string/settings"
-        android:icon="@drawable/ic_more_vert_black_24dp"
-        app:showAsAction="ifRoom">
-        <menu>
-            <item android:id="@+id/settings" android:title="@string/settings"/>
-            <item android:id="@+id/report" android:title="@string/report_issue"/>
-            <item android:id="@+id/sign_out" android:title="@string/sign_out"/>
-        </menu>
-    </item>
+    <!--Overflow Menu-->
+    <item android:id="@+id/settings" android:title="@string/settings"/>
+    <item android:id="@+id/report" android:title="@string/report_issue"/>
+    <item android:id="@+id/sign_out" android:title="@string/sign_out"/>
 
 </menu>

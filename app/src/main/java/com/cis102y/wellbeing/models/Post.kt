@@ -4,11 +4,11 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FieldValue
 
 class Post {
-    private lateinit var authorName : String
-    private lateinit var text : String
-    private lateinit var createdTimestamp : FieldValue
-    private var likeCount = 0
-    private var commentCount = 0
+    lateinit var authorName : String
+     lateinit var text : String
+     lateinit var createdTimestamp : FieldValue
+     var likeCount = 0
+     var commentCount = 0
 
     fun Post() {
 
