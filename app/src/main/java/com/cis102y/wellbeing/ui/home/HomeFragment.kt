@@ -35,14 +35,15 @@ class HomeFragment : Fragment() {
         return root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         val recyclerView = view?.findViewById<RecyclerView>(R.id.recycler_view_home)
         recyclerView?.layoutManager = LinearLayoutManager(activity)
         //List posts by most recent
         val rootRef = FirebaseFirestore.getInstance()
-        val query = rootRef.collection("posts").orderBy("createdTimestamp", Query.Direction.DESCENDING)
+        val query =
+            rootRef.collection("posts").orderBy("createdTimestamp", Query.Direction.DESCENDING)
         val options =
             FirestoreRecyclerOptions.Builder<Post>().setQuery(query, Post::class.java).build()
 

@@ -36,17 +36,23 @@ class NotificationsFragment : Fragment() {
         return root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         val recyclerView = view?.findViewById<RecyclerView>(R.id.recycler_view_notifications)
         recyclerView?.layoutManager = LinearLayoutManager(activity)
         //Add horizontal borders between each notification
-        recyclerView?.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+        recyclerView?.addItemDecoration(
+            DividerItemDecoration(
+                activity,
+                DividerItemDecoration.VERTICAL
+            )
+        )
         //List notifications by most recent
         val rootRef = FirebaseFirestore.getInstance()
         val query =
-            rootRef.collection("notifications").orderBy("timestamp", Query.Direction.DESCENDING)
+            rootRef.collection("notifications")
+                .orderBy("notifiedTimestamp", Query.Direction.DESCENDING)
         val options =
             FirestoreRecyclerOptions.Builder<Notification>()
                 .setQuery(query, Notification::class.java).build()
@@ -68,6 +74,7 @@ class NotificationsFragment : Fragment() {
     private inner class NotificationViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         private lateinit var view: View
+
     }
 
     private inner class NotificationFirestoreRecyclerAdapter(options: FirestoreRecyclerOptions<Notification>) :

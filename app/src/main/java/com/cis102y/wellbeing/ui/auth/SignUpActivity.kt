@@ -20,6 +20,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
@@ -80,6 +81,9 @@ class SignUpActivity : AppCompatActivity() {
                             }
                         //Send account verification email
                         user.sendEmailVerification()
+//                        val bundle = Bundle()
+//                        bundle.putString(FirebaseAnalytics.Param.METHOD, method)
+//                        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SIGN_UP, bundle)
                         finish()
                         //updateUI(user)
                     }
