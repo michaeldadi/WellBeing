@@ -42,7 +42,7 @@ class HomeFragment : Fragment() {
         recyclerView?.layoutManager = LinearLayoutManager(activity)
         //List posts by most recent
         val rootRef = FirebaseFirestore.getInstance()
-        val query = rootRef.collection("posts").orderBy("timestamp", Query.Direction.DESCENDING)
+        val query = rootRef.collection("posts").orderBy("createdTimestamp", Query.Direction.DESCENDING)
         val options =
             FirestoreRecyclerOptions.Builder<Post>().setQuery(query, Post::class.java).build()
 
