@@ -52,7 +52,12 @@ class SignInActivity : AppCompatActivity() {
         val editTextEmail = findViewById<EditText>(R.id.inputEmail)
         val editTextPassword = findViewById<EditText>(R.id.inputPassword)
         findViewById<Button>(R.id.btnLogin).setOnClickListener {
-            auth.signInWithEmailAndPassword(editTextEmail.text.toString(), editTextPassword.text.toString())
+            auth.signInWithEmailAndPassword(editTextEmail.text.toString(), editTextPassword.text.toString()).addOnCompleteListener(this) { task ->
+                if (task.isSuccessful)
+                    finish()
+                else
+                    Log.w(TAG, "signInWithEmail:failure", task.exception)
+            }
         }
         //Define user data being requested from Google account (basic info, email, & ID token)
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -140,6 +145,7 @@ class SignInActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
+                    finish()
                     //updateUI(user)
                 } else {
                     // If sign in fails, display a message to the user.
@@ -161,6 +167,7 @@ class SignInActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
+                    finish()
                     //updateUI(user)
                 } else {
                     // If sign in fails, display a message to the user.

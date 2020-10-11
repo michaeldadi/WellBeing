@@ -11,7 +11,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import androidx.transition.TransitionManager
 import com.cis102y.wellbeing.ui.auth.SignInActivity
+import com.cis102y.wellbeing.ui.home.HomeFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -29,7 +31,8 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         navView.setupWithNavController(navController)
-
+        supportFragmentManager.popBackStack()
+        //supportFragmentManager.beginTransaction().add(HomeFragment::class.java).commit()
         checkCurrentUser()
 
         setSupportActionBar(findViewById(R.id.toolbar))
@@ -59,6 +62,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.sign_out -> {
+                FirebaseAuth.getInstance().signOut()
+                startActivity(Intent(this, SignInActivity::class.java))
+            }
+            R.id.settings -> {
+                //supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment_container, SettingsFragment()).commit()
+            }
+        }
         return super.onOptionsItemSelected(item)
     }
 

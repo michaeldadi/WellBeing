@@ -60,7 +60,7 @@ class SignUpActivity : AppCompatActivity() {
                                 Log.d(TAG, "User profile updated.")
                         }
                         //TODO: implement EditTexts in ui to get user inputs
-                        val userInfo = hashMapOf<String, Any>(
+                        val userInfo = hashMapOf(
                             "firstName" to "",
                             "lastName" to "",
                             "phoneNumber" to "",
