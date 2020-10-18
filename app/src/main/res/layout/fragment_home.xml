@@ -2,12 +2,14 @@
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_marginTop="?android:attr/actionBarSize"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_container_home">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_home"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/recyclerview_home_item"/>
+            tools:listitem="@layout/recyclerview_home_item" />
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

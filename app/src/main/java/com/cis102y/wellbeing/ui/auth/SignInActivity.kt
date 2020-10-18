@@ -4,10 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.cis102y.wellbeing.R
 import com.cis102y.wellbeing.ui.home.HomeFragment
@@ -17,7 +13,6 @@ import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
-import com.facebook.login.widget.LoginButton
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -28,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_sign_in.*
 
 class SignInActivity : AppCompatActivity() {
 
@@ -39,20 +35,16 @@ class SignInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
         //Switch to Sign Up Activity
-        val gotoRegister = findViewById<TextView>(R.id.gotoRegister)
         gotoRegister.setOnClickListener{
             startActivity(Intent(this, SignUpActivity::class.java))
         }
         //Switch to Forgot Password Activity
-        val gotoForgotPassword = findViewById<TextView>(R.id.gotoForgotPassword)
         gotoForgotPassword.setOnClickListener{
             startActivity(Intent(this, ForgotPasswordActivity::class.java))
         }
         //Sign into existing account with email/password
-        val editTextEmail = findViewById<EditText>(R.id.inputEmail)
-        val editTextPassword = findViewById<EditText>(R.id.inputPassword)
-        findViewById<Button>(R.id.btnLogin).setOnClickListener {
-            auth.signInWithEmailAndPassword(editTextEmail.text.toString(), editTextPassword.text.toString()).addOnCompleteListener(this) { task ->
+        btnLogin.setOnClickListener {
+            auth.signInWithEmailAndPassword(inputEmail.text.toString(), inputPassword.text.toString()).addOnCompleteListener(this) { task ->
                 if (task.isSuccessful)
                     finish()
                 else
@@ -67,21 +59,20 @@ class SignInActivity : AppCompatActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
         //Sign in with Google account
-        findViewById<ImageView>(R.id.googleLogin).setOnClickListener {
+        googleLogin.setOnClickListener {
             startActivityForResult(googleSignInClient.signInIntent, RC_SIGN_IN)
         }
-        val facebookLogin = findViewById<LoginButton>(R.id.btnFacebookLogin)
         //Convert click on custom button to click on Facebook LoginButton
-        findViewById<ImageView>(R.id.facebookLogin).setOnClickListener {
+        facebookLogin.setOnClickListener {
             //Convert click on custom button to click on Facebook LoginButton
-            facebookLogin.performClick()
+            btnFacebookLogin.performClick()
         }
         //Sign in with Facebook account
-        facebookLogin.setOnClickListener {
+        btnFacebookLogin.setOnClickListener {
             callbackManager = CallbackManager.Factory.create()
             //Define user data being requested from Facebook account (email, public profile)
-            facebookLogin.setPermissions("email", "public_profile")
-            facebookLogin.registerCallback(callbackManager, object:FacebookCallback<LoginResult> {
+            btnFacebookLogin.setPermissions("email", "public_profile")
+            btnFacebookLogin.registerCallback(callbackManager, object:FacebookCallback<LoginResult> {
                 override fun onSuccess(loginResult: LoginResult?) {
                     Log.d(TAG, "facebook:onSuccess:$loginResult")
                     handleFacebookAccessToken(loginResult!!.accessToken)

@@ -3,10 +3,6 @@ package com.cis102y.wellbeing.ui.auth
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.cis102y.wellbeing.R
 import com.facebook.AccessToken
@@ -14,13 +10,11 @@ import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginResult
-import com.facebook.login.widget.LoginButton
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
@@ -29,6 +23,7 @@ import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_sign_up.*
 
 private lateinit var auth: FirebaseAuth
 private lateinit var googleSignInClient: GoogleSignInClient
@@ -40,14 +35,12 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
         //Switch to Sign In Activity
-        findViewById<TextView>(R.id.gotoSignIn).setOnClickListener{
+        gotoSignIn.setOnClickListener{
             startActivity(Intent(this, SignInActivity::class.java))
         }
         //Create new user account with email/password
-        val editTextEmail = findViewById<EditText>(R.id.inputEmail)
-        val editTextPassword = findViewById<EditText>(R.id.inputPassword)
-        findViewById<Button>(R.id.btnRegister).setOnClickListener {
-            auth.createUserWithEmailAndPassword(editTextEmail.text.toString(), editTextPassword.text.toString())
+        btnRegister.setOnClickListener {
+            auth.createUserWithEmailAndPassword(inputEmail.text.toString(), inputPassword.text.toString())
                 .addOnCompleteListener(this) {task1 ->
                     if (task1.isSuccessful) {
                         Log.d(TAG, "createUserWithEmail:success")
@@ -102,18 +95,18 @@ class SignUpActivity : AppCompatActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
         //Sign in with Google account
-        findViewById<ImageView>(R.id.googleLogin).setOnClickListener {
+        googleLogin.setOnClickListener {
             startActivityForResult(googleSignInClient.signInIntent, RC_SIGN_IN)
         }
-        val facebookLogin = findViewById<LoginButton>(R.id.btnFacebookLogin)
+
         //Convert click on custom button to click on Facebook LoginButton
-        findViewById<ImageView>(R.id.facebookLogin).setOnClickListener { facebookLogin.performClick() }
+        facebookLogin.setOnClickListener { btnFacebookLogin.performClick() }
         //Sign in with Facebook account
-        facebookLogin.setOnClickListener {
+        btnFacebookLogin.setOnClickListener {
             callbackManager = CallbackManager.Factory.create()
             //Define user data being requested from Facebook account (email, public profile)
-            facebookLogin.setPermissions("email", "public_profile")
-            facebookLogin.registerCallback(callbackManager, object: FacebookCallback<LoginResult> {
+            btnFacebookLogin.setPermissions("email", "public_profile")
+            btnFacebookLogin.registerCallback(callbackManager, object: FacebookCallback<LoginResult> {
                 override fun onSuccess(loginResult: LoginResult?) {
                     Log.d(TAG, "facebook:onSuccess:$loginResult")
                     handleFacebookAccessToken(loginResult!!.accessToken)

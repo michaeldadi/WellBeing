@@ -15,6 +15,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import kotlinx.android.synthetic.main.fragment_notifications.*
+import java.util.*
 
 class NotificationsFragment : Fragment() {
 
@@ -29,20 +31,22 @@ class NotificationsFragment : Fragment() {
         notificationsViewModel =
             ViewModelProvider(this).get(NotificationsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_notifications, container, false)
-//        val textView: TextView = root.findViewById(R.id.text_notifications)
 //        notificationsViewModel.text.observe(viewLifecycleOwner, {
-//            textView.text = it
+//            text_notifications.text = it
 //        })
         return root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val recyclerView = view?.findViewById<RecyclerView>(R.id.recycler_view_notifications)
-        recyclerView?.layoutManager = LinearLayoutManager(activity)
+        swipe_container_notifications.setOnRefreshListener {
+            swipe_container_notifications.isRefreshing = false
+        }
+
+        recycler_view_notifications.layoutManager = LinearLayoutManager(activity)
         //Add horizontal borders between each notification
-        recyclerView?.addItemDecoration(
+        recycler_view_notifications.addItemDecoration(
             DividerItemDecoration(
                 activity,
                 DividerItemDecoration.VERTICAL
@@ -55,26 +59,27 @@ class NotificationsFragment : Fragment() {
                 .orderBy("notifiedTimestamp", Query.Direction.DESCENDING)
         val options =
             FirestoreRecyclerOptions.Builder<Notification>()
-                .setQuery(query, Notification::class.java).build()
+                .setQuery(query, Notification::class.java).setLifecycleOwner(this).build()
 
         adapter = NotificationFirestoreRecyclerAdapter(options)
-        recyclerView?.adapter = adapter
-    }
-
-    override fun onStart() {
-        super.onStart()
-        adapter.startListening()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        adapter.stopListening()
+        recycler_view_notifications.adapter = adapter
     }
 
     private inner class NotificationViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         private lateinit var view: View
 
+        fun setNotifiedTimestamp(notifiedTimestamp: Date?) {
+
+        }
+
+        fun setPhotoUrl(photoUrl: String) {
+
+        }
+
+        fun setText(text: String) {
+
+        }
     }
 
     private inner class NotificationFirestoreRecyclerAdapter(options: FirestoreRecyclerOptions<Notification>) :
