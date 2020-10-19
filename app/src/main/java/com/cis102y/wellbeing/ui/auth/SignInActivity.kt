@@ -35,16 +35,19 @@ class SignInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
         //Switch to Sign Up Activity
-        gotoRegister.setOnClickListener{
+        gotoRegister.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
         }
         //Switch to Forgot Password Activity
-        gotoForgotPassword.setOnClickListener{
+        gotoForgotPassword.setOnClickListener {
             startActivity(Intent(this, ForgotPasswordActivity::class.java))
         }
         //Sign into existing account with email/password
         btnLogin.setOnClickListener {
-            auth.signInWithEmailAndPassword(inputEmail.text.toString(), inputPassword.text.toString()).addOnCompleteListener(this) { task ->
+            auth.signInWithEmailAndPassword(
+                inputEmail.text.toString(),
+                inputPassword.text.toString()
+            ).addOnCompleteListener(this) { task ->
                 if (task.isSuccessful)
                     finish()
                 else
@@ -72,20 +75,22 @@ class SignInActivity : AppCompatActivity() {
             callbackManager = CallbackManager.Factory.create()
             //Define user data being requested from Facebook account (email, public profile)
             btnFacebookLogin.setPermissions("email", "public_profile")
-            btnFacebookLogin.registerCallback(callbackManager, object:FacebookCallback<LoginResult> {
-                override fun onSuccess(loginResult: LoginResult?) {
-                    Log.d(TAG, "facebook:onSuccess:$loginResult")
-                    handleFacebookAccessToken(loginResult!!.accessToken)
-                }
+            btnFacebookLogin.registerCallback(
+                callbackManager,
+                object : FacebookCallback<LoginResult> {
+                    override fun onSuccess(loginResult: LoginResult?) {
+                        Log.d(TAG, "facebook:onSuccess:$loginResult")
+                        handleFacebookAccessToken(loginResult!!.accessToken)
+                    }
 
-                override fun onCancel() {
-                    Log.d(TAG, "facebook:onCancel")
-                }
+                    override fun onCancel() {
+                        Log.d(TAG, "facebook:onCancel")
+                    }
 
-                override fun onError(error: FacebookException?) {
-                    Log.d(TAG, "facebook:onError", error)
-                }
-            })
+                    override fun onError(error: FacebookException?) {
+                        Log.d(TAG, "facebook:onError", error)
+                    }
+                })
         }
 
         auth = Firebase.auth
@@ -95,7 +100,8 @@ class SignInActivity : AppCompatActivity() {
         super.onStart()
         val currentUser = auth.currentUser
         if (currentUser != null)
-            supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment_container, HomeFragment()).commit()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.nav_host_fragment_container, HomeFragment()).commit()
     }
 
     private fun signOut() {
@@ -122,8 +128,7 @@ class SignInActivity : AppCompatActivity() {
                 Log.w(TAG, "Google sign in failed", e)
                 //updateUI(null)
             }
-        }
-        else
+        } else
             callbackManager.onActivityResult(requestCode, resultCode, data)
     }
 
@@ -142,7 +147,8 @@ class SignInActivity : AppCompatActivity() {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
 
-                    Snackbar.make(View(this), "Authentication Failed.", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(View(this), "Authentication Failed.", Snackbar.LENGTH_SHORT)
+                        .show()
                     //updateUI(null)
                 }
             }
@@ -163,7 +169,11 @@ class SignInActivity : AppCompatActivity() {
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
-                    Snackbar.make(window.decorView.rootView, "Authentication failed.", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(
+                        window.decorView.rootView,
+                        "Authentication failed.",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                     //updateUI(null)
                 }
                 //hideProgressBar()

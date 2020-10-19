@@ -22,11 +22,10 @@ class ProfileFragment : Fragment() {
     ): View? {
         profileViewModel =
             ViewModelProvider(this).get(ProfileViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
-//        profileViewModel.text.observe(viewLifecycleOwner, {
+        //        profileViewModel.text.observe(viewLifecycleOwner, {
 //            text_profile.text = it
 //        })
-        return root
+        return inflater.inflate(R.layout.fragment_dashboard, container, false)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

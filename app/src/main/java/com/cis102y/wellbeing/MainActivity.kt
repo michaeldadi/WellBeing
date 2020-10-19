@@ -22,7 +22,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -31,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         //supportFragmentManager.beginTransaction().add(HomeFragment::class.java).commit()
         checkCurrentUser()
 
-        setSupportActionBar(findViewById(R.id.toolbar))
+        setSupportActionBar(toolbar)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -39,12 +40,12 @@ class MainActivity : AppCompatActivity() {
         // Define the listener
         val expandListener = object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
-                TransitionManager.beginDelayedTransition(findViewById(R.id.toolbar))
+                TransitionManager.beginDelayedTransition(toolbar)
                 return true // Return true to collapse action view
             }
 
             override fun onMenuItemActionExpand(item: MenuItem): Boolean {
-                TransitionManager.beginDelayedTransition(findViewById(R.id.toolbar))
+                TransitionManager.beginDelayedTransition(toolbar)
                 return true // Return true to expand action view
             }
         }
@@ -58,13 +59,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.sign_out -> {
                 FirebaseAuth.getInstance().signOut()
                 startActivity(Intent(this, SignInActivity::class.java))
             }
             R.id.settings -> {
-                //supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment_container, SettingsFragment()).commit()
+                startActivity(Intent(this, SettingsActivity::class.java))
             }
         }
         return super.onOptionsItemSelected(item)

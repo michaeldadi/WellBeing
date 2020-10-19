@@ -31,12 +31,11 @@ class HomeFragment : Fragment() {
     ): View? {
         homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-//        homeViewModel.text.observe(viewLifecycleOwner, {
+        //        homeViewModel.text.observe(viewLifecycleOwner, {
 //            text_home.text = it
 //        })
 
-        return root
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,7 +52,8 @@ class HomeFragment : Fragment() {
         val query =
             rootRef.collection("posts").orderBy("createdTimestamp", Query.Direction.DESCENDING)
         val options =
-            FirestoreRecyclerOptions.Builder<Post>().setQuery(query, Post::class.java).setLifecycleOwner(this).build()
+            FirestoreRecyclerOptions.Builder<Post>().setQuery(query, Post::class.java)
+                .setLifecycleOwner(this).build()
 
         adapter = HomeFirestoreRecyclerAdapter(options)
         recycler_view_home.adapter = adapter
@@ -80,6 +80,7 @@ class HomeFragment : Fragment() {
         fun setText(text: String) {
 
         }
+
         fun setLikeCount(likeCount: Int) {
 
         }
@@ -101,7 +102,7 @@ class HomeFragment : Fragment() {
         override fun onBindViewHolder(holder: HomeViewHolder, position: Int, model: Post) {
             holder.setText(model.text)
             holder.setCreatedTimestamp(model.createdTimestamp)
-            Log.d("HomeFrag",model.createdTimestamp.toString())
+            Log.d("HomeFrag", model.createdTimestamp.toString())
             holder.setLikeCount(model.likeCount)
             holder.setCommentCount(model.commentCount)
         }

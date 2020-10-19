@@ -30,11 +30,10 @@ class NotificationsFragment : Fragment() {
     ): View? {
         notificationsViewModel =
             ViewModelProvider(this).get(NotificationsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_notifications, container, false)
-//        notificationsViewModel.text.observe(viewLifecycleOwner, {
+        //        notificationsViewModel.text.observe(viewLifecycleOwner, {
 //            text_notifications.text = it
 //        })
-        return root
+        return inflater.inflate(R.layout.fragment_notifications, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
