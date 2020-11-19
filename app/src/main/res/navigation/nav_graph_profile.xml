@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_profile"
+    app:startDestination="@id/navigate_profile"
+    tools:ignore="UnusedNavigation">
+
+    <fragment
+        android:id="@+id/navigate_profile"
+        android:name="com.cis102y.wellbeing.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_edit_profile2"
+            app:destination="@id/navigate_edit_profile" />
+        <action
+            android:id="@+id/action_navigate_profile_to_navigate_settings"
+            app:destination="@id/navigate_settings" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigate_edit_profile"
+        android:name="com.cis102y.wellbeing.ui.profile.EditProfileFragment"
+        android:label="@string/title_edit_profile"
+        tools:layout="@layout/fragment_edit_profile">
+        <action
+            android:id="@+id/action_navigation_edit_profile_to_navigation_profile"
+            app:destination="@id/navigate_profile"
+            app:popUpTo="@id/navigate_profile"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigate_settings"
+        android:name="com.cis102y.wellbeing.SettingsFragment"
+        android:label="@string/title_settings" />
+
+</navigation>

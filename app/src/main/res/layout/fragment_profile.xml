@@ -1,14 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.profile.ProfileFragment">
+    <View
+        android:id="@+id/topView"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary" />
 
-<!--    <com.cis102y.wellbeing.CircleImageView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintTop_toBottomOf="parent" />-->
+    <View
+        android:id="@+id/view5"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/profile_appshape"
+        android:layout_below="@+id/topView" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageButton
+        android:id="@+id/gotoEditProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/ic_edit_white_24dp"
+        android:background="@null"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/content_desc_goto_edit_profile" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/profile_name"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="20dp"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="#ffffff" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/profile_email"
+        android:layout_alignTop="@+id/profile_name"
+        android:layout_alignStart="@+id/profile_name"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="5dp"
+        android:textColor="#ffffff"
+        android:textSize="20sp"/>
+
+    <com.cis102y.wellbeing.utils.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="wrap_content"
+        android:layout_height="140dp"
+        android:layout_marginStart="200dp"
+        android:layout_alignBottom="@+id/view5" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/view5"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="45dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.cis102y.wellbeing.utils.CircleImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/round_view_white"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_outline_person_yellow_24"
+                android:contentDescription="@string/content_desc_profile_user_name_icon"
+                android:elevation="8dp" />
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/round_view_white"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_outline_phone_green_24"
+                android:contentDescription="@string/content_desc_profile_phone_number_icon"
+                android:elevation="8dp"/>
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/round_view_white"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_gender_blue"
+                android:contentDescription="@string/content_desc_profile_sex_icon"
+                android:elevation="8dp"/>
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/round_view_white"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_outline_cake_pink_24"
+                android:contentDescription="@string/content_desc_profile_birth_date_icon"
+                android:elevation="8dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="16dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_profile_user_name"/>
+            <TextView
+                android:id="@+id/profile_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="jdoe5483"
+                android:textStyle="bold"
+                android:layout_marginBottom="32dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_profile_phone_number"/>
+            <TextView
+                android:id="@+id/profile_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(123) 456 - 7890"
+                android:textStyle="bold"
+                android:layout_marginBottom="32dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_profile_sex"/>
+            <TextView
+                android:id="@+id/profile_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male"
+                android:textStyle="bold"
+                android:layout_marginBottom="32dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_profile_birth_date"/>
+            <TextView
+                android:id="@+id/profile_dob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="September 12th, 1999"
+                android:textStyle="bold"
+                android:layout_marginBottom="32dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

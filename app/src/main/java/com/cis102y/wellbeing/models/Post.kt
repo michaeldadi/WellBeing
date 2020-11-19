@@ -4,6 +4,7 @@ import com.google.firebase.firestore.ServerTimestamp
 import java.util.*
 
 data class Post(
+    var imgUri: String = "  ",
     var authorName: String = "",
     var text: String = "",
     @ServerTimestamp

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_notifications"
+    app:startDestination="@id/navigate_notifications"
+    tools:ignore="UnusedNavigation">
+
+    <fragment
+        android:id="@+id/navigate_notifications"
+        android:name="com.cis102y.wellbeing.ui.notifications.NotificationsFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_notifications" >
+        <action
+            android:id="@+id/action_navigate_notifications_to_navigate_settings"
+            app:destination="@id/navigate_settings" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigate_settings"
+        android:name="com.cis102y.wellbeing.SettingsFragment"
+        android:label="@string/title_settings" />
+
+</navigation>

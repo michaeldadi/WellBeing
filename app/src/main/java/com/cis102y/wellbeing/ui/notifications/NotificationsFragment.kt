@@ -1,14 +1,17 @@
 package com.cis102y.wellbeing.ui.notifications
 
 import android.os.Bundle
+import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.cis102y.wellbeing.R
 import com.cis102y.wellbeing.models.Notification
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
@@ -16,11 +19,10 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.fragment_notifications.*
-import java.util.*
+import kotlinx.android.synthetic.main.recyclerview_notification_item.view.*
 
 class NotificationsFragment : Fragment() {
 
-    private lateinit var notificationsViewModel: NotificationsViewModel
     private lateinit var adapter: NotificationFirestoreRecyclerAdapter
 
     override fun onCreateView(
@@ -28,11 +30,6 @@ class NotificationsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        notificationsViewModel =
-            ViewModelProvider(this).get(NotificationsViewModel::class.java)
-        //        notificationsViewModel.text.observe(viewLifecycleOwner, {
-//            text_notifications.text = it
-//        })
         return inflater.inflate(R.layout.fragment_notifications, container, false)
     }
 
@@ -66,18 +63,15 @@ class NotificationsFragment : Fragment() {
 
     private inner class NotificationViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
-        private lateinit var view: View
+        val image: ImageView
+        val content: TextView
+        val notifiedTime: TextView
+        init {
+            super.itemView
 
-        fun setNotifiedTimestamp(notifiedTimestamp: Date?) {
-
-        }
-
-        fun setPhotoUrl(photoUrl: String) {
-
-        }
-
-        fun setText(text: String) {
-
+            image = itemView.notification_profile_picture
+            content = itemView.notification_text
+            notifiedTime = itemView.notification_date
         }
     }
 
@@ -89,13 +83,11 @@ class NotificationsFragment : Fragment() {
             return NotificationViewHolder(view)
         }
 
-        override fun onBindViewHolder(
-            holder: NotificationViewHolder,
-            position: Int,
-            model: Notification
-        ) {
+        override fun onBindViewHolder(holder: NotificationViewHolder, position: Int, model: Notification) {
+            Glide.with(requireContext()).load(model.imgUri).fitCenter().placeholder(R.drawable.user_placeholder).into(holder.image)
 
+            holder.content.text = model.text
+            holder.notifiedTime.text = DateUtils.getRelativeTimeSpanString(model.notifiedTimestamp!!.time)
         }
-
     }
 }

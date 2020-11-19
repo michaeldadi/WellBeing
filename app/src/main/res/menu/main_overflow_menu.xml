@@ -11,9 +11,12 @@
         android:icon="@drawable/ic_search_black_24dp"
         app:showAsAction="collapseActionView|ifRoom"
         app:actionViewClass="android.widget.SearchView"/>
-    <!--Overflow Menu-->
-    <item android:id="@+id/settings" android:title="@string/settings"/>
-    <item android:id="@+id/report" android:title="@string/report_issue"/>
-    <item android:id="@+id/sign_out" android:title="@string/sign_out"/>
+    <!--Settings Navigation-->
+    <item
+        android:id="@+id/settings"
+        android:title="@string/settings"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:orderInCategory="200"
+        app:showAsAction="collapseActionView|ifRoom"/>
 
 </menu>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_dashboard"
+    app:startDestination="@id/navigate_dashboard"
+    tools:ignore="UnusedNavigation">
+
+    <fragment
+        android:id="@+id/navigate_dashboard"
+        android:name="com.cis102y.wellbeing.ui.dashboard.DashboardFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_navigation_dashboard_to_navigation_appointments"
+            app:destination="@id/navigate_appointments" />
+<!--        <action-->
+<!--            android:id="@+id/action_navigation_dashboard_to_navigation_symptoms"-->
+<!--            app:destination="@id/navigate_symptoms" />-->
+        <action
+            android:id="@+id/action_navigation_dashboard_to_navigation_maps"
+            app:destination="@id/navigate_maps" />
+        <action
+            android:id="@+id/action_navigation_dashboard_to_navigation_nutrition"
+            app:destination="@id/navigate_nutrition" />
+        <action
+            android:id="@+id/action_navigation_dashboard_to_navigation_orders"
+            app:destination="@id/navigate_orders" />
+        <action
+            android:id="@+id/action_navigate_dashboard_to_navigate_settings"
+            app:destination="@id/navigate_settings" />
+        <action
+            android:id="@+id/action_navigate_dashboard_to_navigate_chat"
+            app:destination="@id/navigate_chat" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigate_appointments"
+        android:name="com.cis102y.wellbeing.ui.dashboard.bookings.BookingsFragment"
+        android:label="@string/title_appointments"
+        tools:layout="@layout/fragment_appointments" >
+        <action
+            android:id="@+id/action_navigate_appointments_to_navigate_search_appointment"
+            app:destination="@id/navigate_search_appointment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigate_maps"
+        android:name="com.cis102y.wellbeing.ui.dashboard.MapsFragment"
+        android:label="@string/title_maps"
+        tools:layout="@layout/fragment_maps" />
+
+    <fragment
+        android:id="@+id/navigate_symptoms"
+        android:name="com.cis102y.wellbeing.ui.dashboard.SymptomsFragment"
+        android:label="@string/title_symptoms"
+        tools:layout="@layout/fragment_symptoms"/>
+
+    <fragment
+        android:id="@+id/navigate_orders"
+        android:name="com.cis102y.wellbeing.ui.dashboard.orders.OrdersFragment"
+        android:label="@string/title_orders"
+        tools:layout="@layout/fragment_orders">
+        <action
+            android:id="@+id/action_navigation_orders_to_navigation_upload_prescription"
+            app:destination="@id/navigate_upload_prescription" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigate_upload_prescription"
+        android:name="com.cis102y.wellbeing.ui.dashboard.orders.UploadPrescriptionFragment"
+        android:label="@string/title_upload_prescription"
+        tools:layout="@layout/fragment_upload_prescription"/>
+
+    <fragment
+        android:id="@+id/navigate_nutrition"
+        android:name="com.cis102y.wellbeing.ui.dashboard.NutritionFragment"
+        android:label="@string/title_nutrition"
+        tools:layout="@layout/fragment_nutrition"/>
+
+    <fragment
+        android:id="@+id/navigate_settings"
+        android:name="com.cis102y.wellbeing.SettingsFragment"
+        android:label="@string/title_settings" />
+    <fragment
+        android:id="@+id/navigate_chat"
+        android:name="com.cis102y.wellbeing.ui.home.ChatFragment"
+        android:label="Chat" />
+    <fragment
+        android:id="@+id/navigate_search_appointment"
+        android:name="com.cis102y.wellbeing.ui.dashboard.bookings.SearchAppointmentFragment"
+        android:label="Search Appointments" />
+
+</navigation>

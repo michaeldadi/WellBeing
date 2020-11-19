@@ -1,22 +1,308 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView android:layout_height="match_parent" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".ui.dashboard.DashboardFragment">
 
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_list"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="85dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1">
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/btn_bookings"
+            android:background="@drawable/round_bg_red"
+            android:src="@drawable/ic_calendar_today_white_24dp"
+            android:contentDescription="@string/content_desc_bookings_button" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bookings_button"
+                android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight="1">
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/btn_map"
+            android:background="@drawable/round_bg_orange"
+            android:src="@drawable/ic_place_white_24dp"
+            android:contentDescription="@string/content_desc_map_button" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/map_button"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight="1">
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/btn_symptoms"
+            android:background="@drawable/round_bg_dark_blue"
+            android:src="@drawable/ic_sick_white_24dp"
+            android:contentDescription="@string/content_desc_symptoms_button" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/symptoms_button"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight="1">
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/btn_prescriptions"
+            android:background="@drawable/round_bg_light_blue"
+            android:src="@drawable/ic_local_pharmacy_white_24dp"
+            android:contentDescription="@string/content_desc_prescriptions_button" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/orders_button"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight="1">
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/btn_nutrition"
+            android:background="@drawable/round_bg_brown"
+            android:src="@drawable/ic_local_dining_white_24dp"
+            android:contentDescription="@string/content_desc_nutrition_button" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nutrition_button"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    </LinearLayout>
+
     <TextView
-        android:id="@+id/text_dashboard"
+        android:id="@+id/covid_list_header"
+        app:layout_constraintTop_toBottomOf="@+id/btn_list"
+        app:layout_constraintStart_toStartOf="@id/btn_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/covid_list_header"
+        android:textStyle="bold"
+        android:textSize="24sp"/>
+
+    <TextView
+        android:id="@+id/covid_list_subheader"
+        app:layout_constraintTop_toBottomOf="@+id/covid_list_header"
+        app:layout_constraintStart_toStartOf="@id/btn_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/covid_list_subheader"
+        android:textStyle="bold"
+        android:textSize="18sp"/>
+
+    <HorizontalScrollView
+        android:id="@+id/recycler_view_dashboard_covid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/covid_list_subheader"
+        android:orientation="horizontal"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <androidx.cardview.widget.CardView android:layout_width="250dp"
+                android:layout_height="150dp"
+                xmlns:tools="http://schemas.android.com/tools"
+                app:layout_constraintTop_toBottomOf="@+id/btn_list"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                app:cardElevation="8dp"
+                android:layout_margin="12sp">
+
+                <RelativeLayout
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:padding="16dp"
+                    android:background="#58d68d">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dashboard_list_covid_faq"
+                        android:textSize="20sp"/>
+                    <ImageView
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:src="@drawable/virus_clipart"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:contentDescription="@string/content_desc_placeholder_image" />
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView android:layout_width="250dp"
+                android:layout_height="150dp"
+                xmlns:tools="http://schemas.android.com/tools"
+                app:layout_constraintTop_toBottomOf="@+id/btn_list"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                app:cardElevation="8dp"
+                android:layout_margin="12sp">
+
+                <RelativeLayout
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:padding="16dp"
+                    android:background="#89cff0">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dashboard_list_covid_statistics"
+                        android:textSize="20sp"/>
+                    <ImageView
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:src="@drawable/statistics_clipart"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:contentDescription="@string/content_desc_placeholder_image" />
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView android:layout_width="250dp"
+                android:layout_height="150dp"
+                xmlns:tools="http://schemas.android.com/tools"
+                app:layout_constraintTop_toBottomOf="@+id/btn_list"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                app:cardElevation="8dp"
+                android:layout_margin="12sp">
+
+                <RelativeLayout
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:padding="16dp"
+                    android:background="#ffd300">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dashboard_list_covid_prevention"
+                        android:textSize="20sp"/>
+                    <ImageView
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:src="@drawable/mask_clipart"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:contentDescription="@string/content_desc_placeholder_image" />
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView android:layout_width="250dp"
+                android:layout_height="150dp"
+                xmlns:tools="http://schemas.android.com/tools"
+                app:layout_constraintTop_toBottomOf="@+id/btn_list"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                app:cardElevation="8dp"
+                android:layout_margin="12sp">
+
+                <RelativeLayout
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:padding="16dp"
+                    android:background="#f1948a">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dashboard_list_covid_treatment"
+                        android:textSize="20sp"/>
+                    <ImageView
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:src="@drawable/syringe_clipart"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:contentDescription="@string/content_desc_placeholder_image" />
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/things_list_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/btn_list"
+        app:layout_constraintTop_toBottomOf="@id/recycler_view_dashboard_covid"
+        android:text="@string/things_list_header"
+        android:textStyle="bold"
+        android:textSize="24sp"/>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/dashboard_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/things_list_header"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:foregroundGravity="center" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

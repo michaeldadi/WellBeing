@@ -58,11 +58,10 @@ class SignUpActivity : AppCompatActivity() {
                         }
                         //TODO: implement EditTexts in ui to get user inputs
                         val userInfo = hashMapOf(
-                            "firstName" to "",
-                            "lastName" to "",
+                            "userName" to "",
                             "phoneNumber" to "",
                             "emailVerified" to false,
-                            "gender" to "",
+                            "sex" to "",
                             "age" to 0,
                             "registrationTimestamp" to FieldValue.serverTimestamp()
                         )
@@ -99,6 +98,7 @@ class SignUpActivity : AppCompatActivity() {
         //Sign in with Google account
         googleLogin.setOnClickListener {
             startActivityForResult(googleSignInClient.signInIntent, RC_SIGN_IN)
+//            FirebaseFirestore.getInstance().collection("users").document(auth.currentUser!!.uid).set("regComplete" to false)
         }
 
         //Convert click on custom button to click on Facebook LoginButton
